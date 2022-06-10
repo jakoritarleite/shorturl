@@ -16,5 +16,6 @@ model Short {
   id        Int      @unique @default(autoincrement())
   url       String
   short     String
+  short_url String
   createdAt DateTime @default(now())
 }
