@@ -1,15 +1,32 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from '@prisma/client';
 
-type Data = {
-  name: string;
+type Query = {
+  short: string;
 };
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  const { short } = req.query;
+const prisma = new PrismaClient();
 
-  res.status(200).json({ name: "John Doe" });
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== 'GET') return res.send({ message: 'Method not allowed!' });
+
+  const { short } = req.query as Query;
+
+  const data = await prisma.short.findFirst({
+    where: {
+      short: {
+        equals: short
+      }
+    }
+  });
+
+  if (!data) {
+    res.statusCode = 404;
+    return res.send({ message: 'Please provide an existent short query!' });
+  }
+
+  return res.redirect(data.url);
 }
