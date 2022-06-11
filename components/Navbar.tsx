@@ -9,7 +9,7 @@ type NavItem = {
 export default function Navbar() {
   const navItems: Array<NavItem> = [
     { name: 'Source', href: 'https://github.com/jakoritarleite/shorturl' },
-    { name: 'Documentation', href: 'https://docs.aprade.com' },
+    { name: 'Documentation', href: 'https://docs.aprade.com/shorturl/' },
     { name: 'Twitter', href: 'https://twitter.com/koritarsa' },
     { name: 'Donate', href: 'https://github.com/jakoritarleite/shorturl' }
   ];
